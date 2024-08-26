@@ -10,4 +10,4 @@ Este repositorio contiene el código correspondiente a la materia de **Estructur
 
 ## Autor
 Luis Enrique M. C.
-Gruupo 1310 - FES Aragón
+Grupo 1310 - FES Aragón
