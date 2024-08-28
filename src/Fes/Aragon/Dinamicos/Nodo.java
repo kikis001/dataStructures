@@ -1,10 +1,10 @@
 package Fes.Aragon.Dinamicos;
 
-public class Nodo {
-    public int value;
-    public Nodo next;
+public class Nodo<E> {
+    public E value;
+    public Nodo<E> next;
 
-    public Nodo(int value) {
+    public Nodo(E value) {
         this.value = value;
         this.next = null;
     }

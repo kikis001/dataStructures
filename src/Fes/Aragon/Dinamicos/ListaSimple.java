@@ -1,16 +1,16 @@
 package Fes.Aragon.Dinamicos;
 
-public class ListaSimple {
-    public Nodo head;
-    public Nodo tail;
+public class ListaSimple<E> {
+    public Nodo<E> head;
+    public Nodo<E> tail;
     public int length;
 
     /**
      * Constructor de la clase que inicializa una lista con un solo nodo.
      * @param value El valor del nodo inicial.
      */
-    public ListaSimple(int value) {
-        head = new Nodo(value);
+    public ListaSimple(E value) {
+        head = new Nodo<>(value);
         tail = head;
         length = 1;
     }
@@ -20,22 +20,21 @@ public class ListaSimple {
      * @param value El valor del nuevo nodo.
      * @return La instancia actual de ListaSimple para encadenar métodos.
      */
-    public ListaSimple append(int value) {
-        Nodo newNodo = new Nodo(value);
+    public ListaSimple<E> append(E value) {
+        Nodo<E> newNodo = new Nodo<>(value);
         tail.next = newNodo;
         tail = newNodo;
         length++;
         return this;
     }
 
-
     /**
      * Método que añade un nuevo nodo al inicio de la lista
      * @param value El valor del nuevo nodo.
      * @return La instancia actual de ListaSimple para encadenar métodos.
      */
-    public ListaSimple prepend(int value) {
-        Nodo newNodo = new Nodo(value);
+    public ListaSimple<E> prepend(E value) {
+        Nodo<E> newNodo = new Nodo<>(value);
         newNodo.next = head;
         head = newNodo;
         length++;
@@ -49,13 +48,13 @@ public class ListaSimple {
      * @param value El valor del nuevo nodo.
      * @return La instancia actual de ListaSimple para encadenar métodos.
      */
-    public ListaSimple insert(int i, int value) {
+    public ListaSimple<E> insert(int i, E value) {
         if(i >= length) {
             return append(value);
         }
-        Nodo newNodo = new Nodo(value);
-        Nodo elementPre = currentIndex(i -1);
-        Nodo holdingpointer = elementPre.next;
+        Nodo<E> newNodo = new Nodo<>(value);
+        Nodo<E> elementPre = currentIndex(i -1);
+        Nodo<E> holdingpointer = elementPre.next;
         elementPre.next = newNodo;
         newNodo.next = holdingpointer;
         length++;
@@ -67,9 +66,9 @@ public class ListaSimple {
      * @param i El índice del nodo deseado.
      * @return El nodo en el índice especificado.
      */
-    private Nodo currentIndex(int i) {
+    private Nodo<E> currentIndex(int i) {
         int counter = 0;
-        Nodo current = head;
+        Nodo<E> current = head;
         while(counter != i) {
             current = current.next;
             counter++;
@@ -82,11 +81,38 @@ public class ListaSimple {
      * Ejemplo: "1 -> 2 -> 3 -> null"
      */
     public void print() {
-        Nodo currentNodo = head;
-        while(currentNodo.next != null) {
+        Nodo<E> currentNodo = head;
+        while(currentNodo != null) {
             System.out.print(currentNodo.value + " -> ");
             currentNodo= currentNodo.next;
         }
         System.out.println("null");
+    }
+
+    /**
+     * Método que elimina el nodo en la posición indicada.
+     * Si el índice es mayor o igual a la longitud de la lista, no realiza ninguna acción.
+     * @param i El índice del nodo que se debe eliminar.
+     * @return La instancia actual de ListaSimple para encadenar métodos.
+     */
+    public ListaSimple<E> remove(int i) {
+        if(i < 0 || i >= length) {
+            return this;
+        }
+        if(i == 0) {
+            head =head.next;
+            if(length  == 1) {
+                tail = null;
+            }
+        }else {
+            Nodo<E> prev = currentIndex(i -1);
+            Nodo<E> remove = prev.next;
+            prev.next = remove.next;
+            if(i == length - 1) {
+                tail = prev;
+            }
+        }
+        length--;
+        return this;
     }
 }
