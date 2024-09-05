@@ -1,6 +1,6 @@
-package Fes.Aragon.Estaticos;
+package fes.aragon.estaticos;
 
-import Fes.Aragon.Excepciones.IndiceFueraRango;
+import fes.aragon.excepciones.IndiceFueraRango;
 
 public class Array<E> {
     private int index = 0;

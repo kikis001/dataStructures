@@ -1,7 +1,7 @@
-package Fes.Aragon.pruebas;
+package fes.aragon.pruebas;
 
-import Fes.Aragon.Estaticos.Array;
-import Fes.Aragon.Excepciones.IndiceFueraRango;
+import fes.aragon.estaticos.Array;
+import fes.aragon.excepciones.IndiceFueraRango;
 
 public class PruebasArray {
     public static void main(String[] args) {

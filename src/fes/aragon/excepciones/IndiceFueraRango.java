@@ -1,4 +1,4 @@
-package Fes.Aragon.Excepciones;
+package fes.aragon.excepciones;
 
 public class IndiceFueraRango extends Exception {
     public IndiceFueraRango(String log) {

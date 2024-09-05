@@ -1,9 +1,9 @@
-package Fes.Aragon.Dinamicos;
+package fes.aragon.dinamicos;
 
 public class ListaSimple<E> {
     public Nodo<E> head;
     public Nodo<E> tail;
-    public int length;
+    private int length;
 
     /**
      * Constructor de la clase que inicializa una lista con un solo nodo.
@@ -13,6 +13,15 @@ public class ListaSimple<E> {
         head = new Nodo<>(value);
         tail = head;
         length = 1;
+    }
+
+    /**
+     * Constructor de la clase que no inicializa con un nodo
+     */
+    public ListaSimple() {
+        head = null;
+        tail = null;
+        length = 0;
     }
 
     public int getLongitud(){
@@ -73,8 +82,13 @@ public class ListaSimple<E> {
      */
     public ListaSimple<E> append(E value) {
         Nodo<E> newNodo = new Nodo<>(value);
-        tail.next = newNodo;
-        tail = newNodo;
+        if(length == 0) {
+            head = newNodo;
+            tail = newNodo;
+        }else {
+            tail.next = newNodo;
+            tail = newNodo;
+        }
         length++;
         return this;
     }
@@ -86,8 +100,13 @@ public class ListaSimple<E> {
      */
     public ListaSimple<E> prepend(E value) {
         Nodo<E> newNodo = new Nodo<>(value);
-        newNodo.next = head;
-        head = newNodo;
+        if(length == 0) {
+            head = newNodo;
+            tail = newNodo;
+        }else {
+            newNodo.next = head;
+            head = newNodo;
+        }
         length++;
         return this;
     }
@@ -95,11 +114,11 @@ public class ListaSimple<E> {
     /**
      * Método que inserta un nuevo nodo con el valor especificado en la posición indicada.
      * Si el índice es mayor o igual a la longitud de la lista, se añade al final.
-     * @param i El índice en el que se debe insertar el nuevo nodo.
      * @param value El valor del nuevo nodo.
+     * @param i El índice en el que se debe insertar el nuevo nodo.
      * @return La instancia actual de ListaSimple para encadenar métodos.
      */
-    public ListaSimple<E> insert(int i, E value) {
+    public ListaSimple<E> insertar(E value, int i) {
         if(i >= length) {
             return append(value);
         }
@@ -110,6 +129,19 @@ public class ListaSimple<E> {
         newNodo.next = holdingpointer;
         length++;
         return this;
+    }
+
+    public void asignar(E value, int i) {
+        if (i < 0 || i >= length) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango: " + i);
+        }
+
+        Nodo<E> updateNodo = currentIndex(i);
+        updateNodo.value = value;
+    }
+
+    public void asignar(E x) {
+
     }
 
     /**

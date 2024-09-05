@@ -1,4 +1,4 @@
-package Fes.Aragon.Dinamicos;
+package fes.aragon.dinamicos;
 
 public class Nodo<E> {
     public E value;
