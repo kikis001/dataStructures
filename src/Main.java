@@ -1,3 +1,4 @@
+import fes.aragon.algoritmos.ordenamiento.BubbleSort;
 import fes.aragon.dinamicos.ListaSimple;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -5,10 +6,10 @@ import fes.aragon.dinamicos.ListaSimple;
 public class Main {
     public static void main(String[] args) {
         ListaSimple<Integer> list = new ListaSimple<>();
-        list.append(12).append(14).append(52).print();
-        //list.print();
+        list.append(12).append(14).append(52).append(3).append(4).print();
 
-        list.asignar(5,2);
+        BubbleSort bubble = new BubbleSort();
+        bubble.bubbleSort(list);
         list.print();
     }
 }
