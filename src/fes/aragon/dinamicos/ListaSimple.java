@@ -62,7 +62,7 @@ public class ListaSimple<E> {
     }
 
     public E obtenerNodo(int i) {
-        return currentIndex(i-1).value;
+        return currentIndex(i).value;
     }
 
     public int estaEnLista(E x) {
