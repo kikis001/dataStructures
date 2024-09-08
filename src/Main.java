@@ -16,6 +16,7 @@ public class Main {
         list.print();
 
         ListaDoble<Integer> lista = new ListaDoble<>();
-        lista.agregar(1).agregar(5).agregar(8).eliminaEnIndice(2).insertarEnIndice(2, 1).eliminarEnCabeza().print();
+        lista.agregar(1).agregar(5).agregar(8).print();
+        lista.insertarEnIndice(2,1).print();
     }
 }
