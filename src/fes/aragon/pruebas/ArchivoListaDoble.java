@@ -26,7 +26,7 @@ public class ArchivoListaDoble {
             int byteLeido;
             // leer archivo byte por byte
             while ((byteLeido = in.read()) != -1) {
-                listaBytes.agregar((byte) byteLeido);
+                listaBytes.insertarEnCola((byte) byteLeido);
             }
             System.out.println("Almacenado en lw lista");
         } finally {
@@ -40,7 +40,7 @@ public class ArchivoListaDoble {
      * Método para imprimir los bytes almacenados en la lista
      */
     public void printBytes() {
-        listaBytes.print();
+        listaBytes.imprimir();
     }
 
     /**
@@ -49,11 +49,11 @@ public class ArchivoListaDoble {
      */
     public void reconstruirArchivo(String path) throws IOException {
         FileOutputStream out = null;
-        NodoD<Byte> current = listaBytes.head;
+        NodoD<Byte> current = listaBytes.cabeza;
         try {
             out = new FileOutputStream(path);
             while (current != null) {
-                out.write(current.value);
+                out.write(current.valor);
                 current = current.next;
             }
             System.out.println("Archivo contruido en " + path);

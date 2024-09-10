@@ -1,12 +1,12 @@
 package fes.aragon.dinamicos;
 
 public class NodoD<E> {
-    public E value;
+    public E valor;
     public NodoD<E> next;
     public NodoD<E> prev;
 
-    public NodoD(E value) {
-        this.value = value;
+    public NodoD(E valor) {
+        this.valor = valor;
         next = null;
         prev = null;
     }

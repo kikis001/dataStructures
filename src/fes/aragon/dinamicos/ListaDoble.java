@@ -1,59 +1,77 @@
 package fes.aragon.dinamicos;
 
 public class ListaDoble<E>{
-    public NodoD<E> head;
-    public NodoD<E> tail;
-    private int length;
+    public NodoD<E> cabeza;
+    public NodoD<E> cola;
+    private int longitud;
 
     /**
      * Constructor de la clase que inicializa una lista con un solo nodo.
-     * @param value El valor del nodo inicial.
+     * @param valor El valor del nodo inicial.
      */
-    public ListaDoble(E value) {
-        NodoD<E> newNodo = new NodoD<>(value);
-        head = newNodo;
-        tail = newNodo;
-        length = 1;
+    public ListaDoble(E valor) {
+        NodoD<E> nuevoNodo = new NodoD<>(valor);
+        cabeza = nuevoNodo;
+        cola = nuevoNodo;
+        longitud = 1;
     }
 
     /**
      * Constructor de la clase que inicializa sin ninguna valor inicial
      */
     public ListaDoble() {
-        head = null;
-        tail = null;
-        length = 0;
+        cabeza = null;
+        cola = null;
+        longitud = 0;
     }
 
     /**
      * Método que te devuelve la longitud de la lista
      */
     public int getLongitud(){
-         return length;
+         return longitud;
     }
 
     /**
      * Método que retorna si la lista está vacia
      */
     public boolean esVacia() {
-        return length == 0;
+        return longitud == 0;
     }
 
     /**
      * Método que agrega un elemento al final de la lista
-     * @param value valor que será agregado
+     * @param valor valor que será agregado
      */
-    public ListaDoble<E> agregar(E value) {
-        NodoD<E> newNodo = new NodoD<>(value);
-        if(length == 0) {
-            head = newNodo;
-            tail = newNodo;
+    public ListaDoble<E> insertarEnCabeza(E valor) {
+        NodoD<E> nuevoNodo = new NodoD<>(valor);
+        if(longitud == 0) {
+            cabeza = nuevoNodo;
+            cola = nuevoNodo;
         }else {
-            tail.next = newNodo;
-            newNodo.prev = tail;
-            tail = newNodo;
+            cabeza.prev = nuevoNodo;
+            nuevoNodo.next = cabeza;
+            cabeza = nuevoNodo;
         }
-        length++;
+        longitud++;
+        return this;
+    }
+
+    /**
+     * Método que agrega un elemento al final de la lista
+     * @param valor valor que será agregado
+     */
+    public ListaDoble<E> insertarEnCola(E valor) {
+        NodoD<E> nuevoNodo = new NodoD<>(valor);
+        if(longitud == 0) {
+            cabeza = nuevoNodo;
+            cola = nuevoNodo;
+        }else {
+            cola.next = nuevoNodo;
+            nuevoNodo.prev = cola;
+            cola = nuevoNodo;
+        }
+        longitud++;
         return this;
     }
 
@@ -61,16 +79,16 @@ public class ListaDoble<E>{
      * Método que elima la cabeza de la lista doble
      */
     public ListaDoble<E> eliminarEnCabeza() {
-        if(length == 0) {
+        if(longitud == 0) {
             return this;
-        } else if(length == 1) {
-            head = null;
-            tail = null;
+        } else if(longitud == 1) {
+            cabeza = null;
+            cola = null;
         }else {
-            head = head.next;
-            head.prev = null;
+            cabeza = cabeza.next;
+            cabeza.prev = null;
         }
-        length--;
+        longitud--;
         return this;
     }
 
@@ -78,16 +96,16 @@ public class ListaDoble<E>{
      * Método que elima la cola de la lista doble
      */
     public ListaDoble<E> eliminarEnCola() {
-        if(length == 0) {
+        if(longitud == 0) {
             return this;
-        }else if(length == 1) {
-            head = null;
-            tail = null;
+        }else if(longitud == 1) {
+            cabeza = null;
+            cola = null;
         } else {
-            tail = tail.prev;
-            tail.next = null;
+            cola = cola.prev;
+            cola.next = null;
         }
-        length--;
+        longitud--;
         return this;
     }
 
@@ -95,43 +113,43 @@ public class ListaDoble<E>{
      * Método que regresa el valor de un indice dado
      */
     public E obtenerNodo(int i) {
-        if(i < 0 || i >= length) throw  new IndexOutOfBoundsException("Indice fuera de rango");
-        return currentIndex(i).value;
+        if(i < 0 || i >= longitud) throw  new IndexOutOfBoundsException("Indice fuera de rango");
+        return currentIndex(i).valor;
     }
 
      /**
      * Método que devuelve el indice del valor a buscar
      */
     public int estaEnLista(E x){
-        NodoD<E> current = head;
-        int counter = 0;
-        while(current != null && !current.value.equals(x)) {
-            current = current.next;
-            counter++;
+        NodoD<E> actual = cabeza;
+        int contador = 0;
+        while(actual != null && !actual.valor.equals(x)) {
+            actual = actual.next;
+            contador++;
         }
-        return current != null ? counter : -1;
+        return actual != null ? contador : -1;
     }
 
     /**
      * Método que elimina un elemento en indice dado
      */
     public ListaDoble<E> eliminaEnIndice(int i) {
-        if(i < 0 || i >= length) {
+        if(i < 0 || i >= longitud) {
             return this;
         }
         if(i == 0) {
             return eliminarEnCabeza();
         }
-        if(i == length - 1) {
+        if(i == longitud - 1) {
             return eliminarEnCola();
         }
-        NodoD<E> prev= currentIndex(i-1);
+        NodoD<E> prev = currentIndex(i-1);
         NodoD<E> remove = prev.next;
         prev.next = remove.next;
         if(remove.next != null) {
             remove.next.prev = prev;
         }
-        length--;
+        longitud--;
         return this;
     }
 
@@ -139,19 +157,19 @@ public class ListaDoble<E>{
      * Método que inserta un nuevo valor en el indice dado
      */
     public ListaDoble<E> insertarEnIndice(E x, int i) {
-        if(i < 0 || i>= length) {
+        if(i < 0 || i>= longitud) {
             throw  new IndexOutOfBoundsException("Indice fuera del rango " + i);
         }
-        NodoD<E> newNodo = new NodoD<>(x);
-        NodoD<E> elementPrev = currentIndex(i-1);
-        NodoD<E> holdingpointer = elementPrev.next;
-        elementPrev.next = newNodo;
-        newNodo.prev = elementPrev;
-        newNodo.next = holdingpointer;
-        if(holdingpointer != null) {
-            holdingpointer.prev = newNodo;
+        NodoD<E> nuevoNodo = new NodoD<>(x);
+        NodoD<E> elementoPrevio = currentIndex(i-1);
+        NodoD<E> sostenerPuntero = elementoPrevio.next;
+        elementoPrevio.next = nuevoNodo;
+        nuevoNodo.prev = elementoPrevio;
+        nuevoNodo.next = sostenerPuntero;
+        if(sostenerPuntero != null) {
+            sostenerPuntero.prev = nuevoNodo;
         }
-        length++;
+        longitud++;
         return this;
     }
 
@@ -159,41 +177,41 @@ public class ListaDoble<E>{
      * Método que actualiza el valor de un elemento en la posición dada
      */
     public ListaDoble<E> asignar(E x, int i) {
-        if(i < 0 || i>= length) {
+        if(i < 0 || i>= longitud) {
             throw  new IndexOutOfBoundsException("Indice fuera del rango " + i);
         }
-        NodoD<E> current = currentIndex(i);
-        current.value = x;
+        NodoD<E> actual = currentIndex(i);
+        actual.valor = x;
         return this;
     }
 
     private NodoD<E> currentIndex(int i) {
-        if(i < 0 || i >= length) {
+        if(i < 0 || i >= longitud) {
             throw new IndexOutOfBoundsException("Indice fuera de rango" + i);
         }
-        NodoD<E> current;
-        if(i < length / 2) {
-            current = head;
+        NodoD<E> actual;
+        if(i < longitud / 2) {
+            actual = cabeza;
             for(int j = 0; j < i; j++ ) {
-                current = current.next;
+                actual = actual.next;
             }
         }else {
-            current = tail;
-            for(int j = length - 1; j > i; j--) {
-                current = current.prev;
+            actual = cola;
+            for(int j = longitud - 1; j > i; j--) {
+                actual = actual.prev;
             }
         }
-        return current;
+        return actual;
     }
 
-    public void print() {
-        NodoD<E> current = head;
-        while(current != null) {
-            System.out.print(current.value);
-            if(current != null) {
+    public void imprimir() {
+        NodoD<E> actual = cabeza;
+        while(actual != null) {
+            System.out.print(actual.valor);
+            if(actual != null) {
                 System.out.print(" <-> ");
             }
-            current = current.next;
+            actual = actual.next;
         }
         System.out.println("null");
     }

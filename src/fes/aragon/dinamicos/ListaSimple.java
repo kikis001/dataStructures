@@ -1,95 +1,95 @@
 package fes.aragon.dinamicos;
 
 public class ListaSimple<E> {
-    public Nodo<E> head;
-    public Nodo<E> tail;
-    private int length;
+    public Nodo<E> cabeza;
+    public Nodo<E> cola;
+    private int longitud;
 
     /**
      * Constructor de la clase que inicializa una lista con un solo nodo.
-     * @param value El valor del nodo inicial.
+     * @param valor El valor del nodo inicial.
      */
-    public ListaSimple(E value) {
-        head = new Nodo<>(value);
-        tail = head;
-        length = 1;
+    public ListaSimple(E valor) {
+        cabeza = new Nodo<>(valor);
+        cola = cabeza;
+        longitud = 1;
     }
 
     /**
      * Constructor de la clase que no inicializa con un nodo
      */
     public ListaSimple() {
-        head = null;
-        tail = null;
-        length = 0;
+        cabeza = null;
+        cola = null;
+        longitud = 0;
     }
 
     public int getLongitud(){
-        return this.length;
+        return this.longitud;
     }
 
     public boolean esVacia() {
-        if(length == 0) {
+        if(longitud == 0) {
             return true;
         }
         return false;
     }
 
     public ListaSimple<E> eliminarEnCabeza() {
-        if(length == 1) {
-           head = null;
-           tail = null;
+        if(longitud == 1) {
+           cabeza = null;
+           cola = null;
        }else {
-           head = head.next;
+           cabeza = cabeza.next;
        }
-       length--;
+       longitud--;
        return this;
     }
 
     public ListaSimple<E> eliminarEnCola() {
-        if(length == 0 ) {
+        if(longitud == 0 ) {
             return this;
-        }else if(length == 1) {
-            head = null;
-            tail = null;
+        }else if(longitud == 1) {
+            cabeza = null;
+            cola = null;
         }else {
-            Nodo<E> penultimo = currentIndex(length - 2);
+            Nodo<E> penultimo = currentIndex(longitud - 2);
             penultimo.next = null;
-            tail = penultimo;
+            cola = penultimo;
         }
-        length--;
+        longitud--;
         return this;
     }
 
     public E obtenerNodo(int i) {
-        return currentIndex(i).value;
+        return currentIndex(i).valor;
     }
 
     public int estaEnLista(E x) {
-        Nodo<E> currentNodo = head;
+        Nodo<E> nodoActual = cabeza;
         int counter = 0;
-        while(currentNodo.value != x) {
+        while(nodoActual.valor != x) {
             counter++;
-            currentNodo =  currentNodo.next;
+            nodoActual =  nodoActual.next;
         }
         return counter;
     }
 
     /**
-     * Método que añade un nuevo nodo con el valor especificado al final de la lista.
+     * Método que añade un valor en la cola
      * @param value El valor del nuevo nodo.
      * @return La instancia actual de ListaSimple para encadenar métodos.
      */
-    public ListaSimple<E> append(E value) {
-        Nodo<E> newNodo = new Nodo<>(value);
-        if(length == 0) {
-            head = newNodo;
-            tail = newNodo;
+    public ListaSimple<E> insertarEnCola(E value) {
+        Nodo<E> nuevoNodo = new Nodo<>(value);
+        if(longitud == 0) {
+            cabeza = nuevoNodo;
+            cola = nuevoNodo;
         }else {
-            tail.next = newNodo;
-            tail = newNodo;
+            cola.next = nuevoNodo;
+            cola = nuevoNodo;
         }
-        length++;
+        longitud++;
         return this;
     }
 
@@ -98,16 +98,16 @@ public class ListaSimple<E> {
      * @param value El valor del nuevo nodo.
      * @return La instancia actual de ListaSimple para encadenar métodos.
      */
-    public ListaSimple<E> prepend(E value) {
-        Nodo<E> newNodo = new Nodo<>(value);
-        if(length == 0) {
-            head = newNodo;
-            tail = newNodo;
+    public ListaSimple<E> insertarEnCabeza(E value) {
+        Nodo<E> nuevoNodo = new Nodo<>(value);
+        if(longitud == 0) {
+            cabeza = nuevoNodo;
+            cola = nuevoNodo;
         }else {
-            newNodo.next = head;
-            head = newNodo;
+            nuevoNodo.next = cabeza;
+            cabeza = nuevoNodo;
         }
-        length++;
+        longitud++;
         return this;
     }
 
@@ -119,25 +119,25 @@ public class ListaSimple<E> {
      * @return La instancia actual de ListaSimple para encadenar métodos.
      */
     public ListaSimple<E> insertar(E value, int i) {
-        if(i >= length) {
-            return append(value);
+        if(i >= longitud) {
+            return insertarEnCola(value);
         }
-        Nodo<E> newNodo = new Nodo<>(value);
+        Nodo<E> nuevoNodo = new Nodo<>(value);
         Nodo<E> elementPre = currentIndex(i -1);
-        Nodo<E> holdingpointer = elementPre.next;
-        elementPre.next = newNodo;
-        newNodo.next = holdingpointer;
-        length++;
+        Nodo<E> sostenerPuntero = elementPre.next;
+        elementPre.next = nuevoNodo;
+        nuevoNodo.next = sostenerPuntero;
+        longitud++;
         return this;
     }
 
     public void asignar(E value, int i) {
-        if (i < 0 || i >= length) {
+        if (i < 0 || i >= longitud) {
             throw new IndexOutOfBoundsException("Índice fuera de rango: " + i);
         }
 
-        Nodo<E> updateNodo = currentIndex(i);
-        updateNodo.value = value;
+        Nodo<E> actualizar = currentIndex(i);
+        actualizar.valor = value;
     }
 
     public void asignar(E x) {
@@ -150,27 +150,27 @@ public class ListaSimple<E> {
      * @return El nodo en el índice especificado.
      */
     private Nodo<E> currentIndex(int i) {
-        if (i < 0 || i >= length) {
+        if (i < 0 || i >= longitud) {
             throw new IndexOutOfBoundsException("Índice fuera de rango: " + i);
         }
-        int counter = 0;
-        Nodo<E> current = head;
-        while(counter != i) {
-            current = current.next;
-            counter++;
+        int contador = 0;
+        Nodo<E> actual = cabeza;
+        while(contador != i) {
+            actual = actual.next;
+            contador++;
         }
-        return current;
+        return actual;
     }
 
     /**
      * Método que imprime los valores de los nodos en la lista en formato de lista enlazada.
      * Ejemplo: "1 -> 2 -> 3 -> null"
      */
-    public void print() {
-        Nodo<E> currentNodo = head;
-        while(currentNodo != null) {
-            System.out.print(currentNodo.value + " -> ");
-            currentNodo= currentNodo.next;
+    public void imprimir() {
+        Nodo<E> nodoActual = cabeza;
+        while(nodoActual != null) {
+            System.out.print(nodoActual.valor + " -> ");
+            nodoActual= nodoActual.next;
         }
         System.out.println("null");
     }
@@ -181,24 +181,24 @@ public class ListaSimple<E> {
      * @param i El índice del nodo que se debe eliminar.
      * @return La instancia actual de ListaSimple para encadenar métodos.
      */
-    public ListaSimple<E> remove(int i) {
-        if(i < 0 || i >= length) {
+    public ListaSimple<E> eliminarEnIndice(int i) {
+        if(i < 0 || i >= longitud) {
             return this;
         }
         if(i == 0) {
-            head =head.next;
-            if(length  == 1) {
-                tail = null;
+            cabeza = cabeza.next;
+            if(longitud == 1) {
+                cola = null;
             }
         }else {
             Nodo<E> prev = currentIndex(i -1);
             Nodo<E> remove = prev.next;
             prev.next = remove.next;
-            if(i == length - 1) {
-                tail = prev;
+            if(i == longitud - 1) {
+                cola = prev;
             }
         }
-        length--;
+        longitud--;
         return this;
     }
 }

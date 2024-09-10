@@ -7,16 +7,17 @@ import fes.aragon.dinamicos.ListaSimple;
 public class Main {
     public static void main(String[] args) {
         ListaSimple<Integer> list = new ListaSimple<>();
-        list.append(12).append(14).append(52).append(3).append(4).print();
+        list.insertarEnCola(12).insertarEnCola(14).insertarEnCola(52).insertarEnCola(3).insertarEnCola(4).imprimir();
 
         System.out.println(list.obtenerNodo(2));
         System.out.println(list.getLongitud());
         BubbleSort bubble = new BubbleSort();
         bubble.bubbleSort(list);
-        list.print();
+        list.imprimir();
 
         ListaDoble<Integer> lista = new ListaDoble<>();
-        lista.agregar(1).agregar(5).agregar(8).print();
-        lista.insertarEnIndice(2,1).print();
+        lista.insertarEnCola(1).insertarEnCola(5).imprimir();
+        lista.insertarEnCabeza(8).imprimir();
+        lista.insertarEnIndice(2,1).imprimir();
     }
 }
