@@ -40,7 +40,7 @@ public class ListaDoble<E>{
     }
 
     /**
-     * Método que agrega un elemento al final de la lista
+     * Método que agrega un elemento al principio de la lista
      * @param valor valor que será agregado
      */
     public ListaDoble<E> insertarEnCabeza(E valor) {
