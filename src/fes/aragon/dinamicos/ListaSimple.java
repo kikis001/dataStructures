@@ -68,11 +68,11 @@ public class ListaSimple<E> {
     public int estaEnLista(E x) {
         Nodo<E> nodoActual = cabeza;
         int counter = 0;
-        while(nodoActual.valor != x) {
+        while(nodoActual != null && !nodoActual.valor.equals(x) {
             counter++;
-            nodoActual =  nodoActual.next;
+            nodoActual = nodoActual.next;
         }
-        return counter;
+        return nodoActual != null ? counter : -1;
     }
 
     /**
