@@ -215,4 +215,22 @@ public class ListaDoble<E>{
         }
         System.out.println("null");
     }
+
+    public void asignar(E dato, E nuevo_dato, boolean cambiarTodos) {
+        if(cabeza == null) return;
+
+        NodoD<E> actual = cabeza;
+        boolean encontrado = false;
+
+        while(actual != null) {
+            if(actual.valor.equals(dato)) {
+                actual.valor = nuevo_dato;
+                encontrado = true;
+                if(!cambiarTodos) {
+                    break;
+                }
+            }
+            actual = actual.next;
+        }
+    }
 }
