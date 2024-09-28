@@ -40,7 +40,7 @@ public class ListaDoble<E>{
     }
 
     /**
-     * Método que agrega un elemento al final de la lista
+     * Método que agrega un elemento al principio de la lista
      * @param valor valor que será agregado
      */
     public ListaDoble<E> insertarEnCabeza(E valor) {
@@ -76,7 +76,7 @@ public class ListaDoble<E>{
     }
 
      /**
-     * Método que elima la cabeza de la lista doble
+     * Método que elimina la cabeza de la lista doble
      */
     public ListaDoble<E> eliminarEnCabeza() {
         if(longitud == 0) {
@@ -93,7 +93,7 @@ public class ListaDoble<E>{
     }
 
     /**
-     * Método que elima la cola de la lista doble
+     * Método que elimina la cola de la lista doble
      */
     public ListaDoble<E> eliminarEnCola() {
         if(longitud == 0) {
@@ -131,7 +131,7 @@ public class ListaDoble<E>{
     }
 
     /**
-     * Método que elimina un elemento en indice dado
+     * Método que elimina un elemento en el indice dado
      */
     public ListaDoble<E> eliminaEnIndice(int i) {
         if(i < 0 || i >= longitud) {
