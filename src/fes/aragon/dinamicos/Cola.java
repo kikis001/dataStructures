@@ -11,7 +11,8 @@ public class Cola<E> {
         this.length = 0;
     }
 
-    public Nodo<E> peek() {
+    public Nodo<E> verArriba() {
+        if(esVacia()) return this;
         return primero;
     }
 
@@ -50,5 +51,9 @@ public class Cola<E> {
             nodoActual= nodoActual.next;
         }
         System.out.println("null");
+    }
+
+    public boolean esVacia() {
+        return primero == null;
     }
 }
